@@ -1,6 +1,6 @@
 import * as playwright from 'playwright-core';
-import { ModelsHelper } from './helpers/models.helper';
-import { BaseHelper } from './helpers/base.helper';
+import { ModelsHelper } from '../helpers/models.helper';
+import { BaseHelper } from '../helpers/base.helper';
 
 describe("Models Page", () => {
   let browser: playwright.Browser;

@@ -1,9 +1,9 @@
 // import * as baseHelper from '../ui_tests/helpers/base.helper';
 // import * as ModelsHelper from '../ui_tests/helpers/models.helper';
 import * as playwright from 'playwright-core';
-import {ModelsPage} from './pageObjects/models.page';
-import { ModelsHelper } from './helpers/models.helper';
-import { BaseHelper } from './helpers/base.helper';
+import {ModelsPage} from '../pageObjects/models.page';
+import { ModelsHelper } from '../helpers/models.helper';
+import { BaseHelper } from '../helpers/base.helper';
 
 describe("React App", () => {
   let browser: playwright.Browser;
