@@ -70,6 +70,13 @@ describe("Details Page", () => {
       await expect(await detailsHelper.getIsDirtyHeaderFromMetadataTable()).toEqual('True')
     })
 
+    it('check Services buttons', async () => {
+    await detailsHelper.hoverOnVisualizationButton()
+      await expect(await detailsHelper.tooltipText()).toEqual('No \'embedding\' field in model output fields')
+      await detailsHelper.hoverOnStatButton()
+      await expect(await detailsHelper.tooltipText()).toEqual('Need uploaded training data')
+    })
+
 
     }
   )
@@ -153,6 +160,7 @@ describe("Details Page", () => {
       await expect(await detailsHelper.getValueRowFromSignaturesTable()).toContain('scalar')
       await expect(await detailsHelper.getValueRowFromSignaturesTable()).toContain('NUMERICAL')
 
+      await expect(await detailsHelper.CheckProfileButtonHTMLSignaturesTable()).toEqual(true)
 
     })
 

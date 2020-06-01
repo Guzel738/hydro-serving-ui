@@ -346,4 +346,24 @@ async getNameHeaderFromServablesTable(){
     let list = await this.getSignaturesTableRowsText()
     return list[13].trim()
   }
+
+  async CheckProfileButtonHTMLSignaturesTable() {
+    let table = await this.getSignaturesTable()
+    let list =  await table.$$eval(this.detailsPage.signaturesRowsSelector, nodes => nodes.map(n => n.innerHTML))
+    return list[0].includes(this.detailsPage.profileButtonSelector)
+  }
+
+  async hoverOnVisualizationButton(){
+     await (await this.detailsPage.visualizationButton()).hover()
+  }
+
+  async hoverOnStatButton(){
+    await (await this.detailsPage.statButton()).hover()
+  }
+
+  async tooltipText(){
+    let wrapper = await this.detailsPage.tooltipWrapper()
+    return await wrapper.$eval(this.detailsPage.tooltipSelector, el =>el.innerText)
+  }
+
 }

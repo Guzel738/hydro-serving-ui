@@ -25,6 +25,12 @@ export class DetailsPage {
   readonly metadataRowsSelector='td.metadata__value'
   readonly metadataHeadersSelector='td.metadata__key'
   private readonly backToModelButtonSelector='span.model-version__header-link'
+  readonly profileButtonSelector='span.fields-table__icon.ng-star-inserted'
+  private readonly visualizationButtonSelector=' visualization '
+  private readonly statButtonSelector=' stat '
+  readonly tooltipSelector='span.tooltip.ng-star-inserted'
+  readonly tooltipWrapperSelector='div.tooltip-wrapper'
+
 
   constructor(page: playwright.Page, unifiedConsoleUrl: string) {
     this.page = page;
@@ -69,7 +75,21 @@ export class DetailsPage {
     return await this.page.$(this.metadataTableSelector);
   }
 
+  async visualizationButton(){
+   return await this.page.$('text='+this.visualizationButtonSelector)
+  }
 
+  async statButton(){
+    return await this.page.$('text='+this.statButtonSelector)
+  }
+
+  async tooltipServices() {
+    return await this.page.$(this.tooltipSelector);
+  }
+
+  async tooltipWrapper() {
+    return await this.page.$(this.tooltipWrapperSelector);
+  }
 
 
 
