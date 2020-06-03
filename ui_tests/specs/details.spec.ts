@@ -18,6 +18,7 @@ describe("Details Page", () => {
 
   describe('page structure', () => {
       beforeAll(async () => {
+        jest.setTimeout(30000);
         await page.goto('http://localhost/models/4/54');
         await page.waitForResponse('http://localhost/api/v2/model/version')
       });
@@ -67,14 +68,14 @@ describe("Details Page", () => {
       await expect(await detailsHelper.getNameHeaderFromMetadataTable()).toEqual('git.branch.head.author.name :')
       await expect(await detailsHelper.getDateHeaderFromMetadataTable()).toEqual('git.branch.head.date :')
       await expect(await detailsHelper.getShaHeaderFromMetadataTable()).toEqual('git.branch.head.sha :')
-      await expect(await detailsHelper.getIsDirtyHeaderFromMetadataTable()).toEqual('True')
+      await expect(await detailsHelper.getIsDirtyHeaderFromMetadataTable()).toEqual('git.is-dirty :')
     })
 
-    it('check Services buttons', async () => {
+    it('check Services buttons tooltips', async () => {
     await detailsHelper.hoverOnVisualizationButton()
-      await expect(await detailsHelper.tooltipText()).toEqual('No \'embedding\' field in model output fields')
+      await expect(await detailsHelper.visualizationTooltipText()).toEqual('No \'embedding\' field in model output fields')
       await detailsHelper.hoverOnStatButton()
-      await expect(await detailsHelper.tooltipText()).toEqual('Need uploaded training data')
+      await expect(await detailsHelper.statTooltipText()).toEqual('Need uploaded training data')
     })
 
 
@@ -160,17 +161,24 @@ describe("Details Page", () => {
       await expect(await detailsHelper.getValueRowFromSignaturesTable()).toContain('scalar')
       await expect(await detailsHelper.getValueRowFromSignaturesTable()).toContain('NUMERICAL')
 
-      await expect(await detailsHelper.CheckProfileButtonHTMLSignaturesTable()).toEqual(true)
+      await expect(await detailsHelper.CheckProfileButtonHTMLSignaturesTable()).toEqual(false)
 
     })
 
     it('check metadata table data', async () => {
-      await expect(await detailsHelper.getBranchRowFromMetadataTable()).toEqual('\tfeature/e2e_test')
+      await expect(await detailsHelper.getBranchRowFromMetadataTable()).toEqual('feature/e2e_test')
       await expect(await detailsHelper.getEmailRowFromMetadataTable()).toEqual('Lisch.batanina@gmail.com')
       await expect(await detailsHelper.getNameRowFromMetadataTable()).toEqual('beardedwhale')
       await expect(await detailsHelper.getDateRowFromMetadataTable()).toContain('Tue Apr 21')
       await expect(await detailsHelper.getShaRowFromMetadataTable()).not.toEqual('')
       await expect(await detailsHelper.getIsDirtyRowFromMetadataTable()).toEqual('True')
+
+    })
+
+    it('check successfully built', async () => {
+      await detailsHelper.clickOnShowBuildLogsButton()
+      await expect(await detailsHelper.getLogsText()).toContain('Successfully built')
+      await expect(await detailsHelper.getLogsText()).toContain('Successfully tagged adult_monitoring_test')
 
     })
 

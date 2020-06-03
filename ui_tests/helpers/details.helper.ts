@@ -73,7 +73,7 @@ export class DetailsHelper extends BaseHelper {
 
   async getApplicationTableHeaderText(){
     let table = await this.getApplicationTable()
-    return await table.$eval(this.detailsPage.applicationsHeaderSelector, el => el.textContent)
+    return await table.$$eval(this.detailsPage.applicationsHeaderSelector, nodes => nodes.map(n => n.innerText))
   }
   async getServablesTableRowsText(){
     let table = await this.getServablesTable()
@@ -82,7 +82,7 @@ export class DetailsHelper extends BaseHelper {
 
   async getServablesTableHeaderText(){
     let table = await this.getServablesTable()
-    return await table.$eval(this.detailsPage.servablesHeaderSelector, el => el.textContent)
+    return await table.$$eval(this.detailsPage.servablesHeaderSelector, nodes => nodes.map(n => n.innerText))
   }
 
   async getServablesTableEmptyText(){
@@ -361,9 +361,23 @@ async getNameHeaderFromServablesTable(){
     await (await this.detailsPage.statButton()).hover()
   }
 
-  async tooltipText(){
+
+
+
+  async visualizationTooltipText(){
     let wrapper = await this.detailsPage.tooltipWrapper()
-    return await wrapper.$eval(this.detailsPage.tooltipSelector, el =>el.innerText)
+    return await wrapper[0].$eval(this.detailsPage.tooltipSelector,  el =>el.innerText)
   }
+
+  async statTooltipText(){
+    let wrapper = await this.detailsPage.tooltipWrapper()
+    return await wrapper[1].$eval(this.detailsPage.tooltipSelector,  el =>el.innerText)
+  }
+
+  async getLogsText(){
+    let logs = await this.detailsPage.logsWindow()
+    return  await logs.$eval(this.detailsPage.logsRowsSelector, el =>el.innerText)
+  }
+
 
 }

@@ -12,14 +12,14 @@ export class DetailsPage {
   private readonly createApplicationButtonSelector='button.model-version__item-button.create-application-button.hs-button.hs-button--flat-primary'
   private readonly applicationsTableSelector='div.model-version__applications'
   readonly applicationsRowsSelector='div.model-version__applications-empty.ng-star-inserted'
-  readonly applicationsHeaderSelector='thead.hydro-table-head'
+  readonly applicationsHeaderSelector='th.hydro-table-head__cell'
   readonly applicationsEmptyRowsSelector='div.model-version__applications-empty.ng-star-inserted'
   private readonly servablesTableSelector='section.model-version__servables.ng-star-inserted'
-  readonly servablesHeaderSelector='thead.hydro-table-head'
+  readonly servablesHeaderSelector='th.hydro-table-head__cell'
   readonly servablesRowsSelector='thead.hydro-table-body'
   readonly servablesEmptySelector='div.servables--is-empty.ng-star-inserted'
   private readonly signaturesTableSelector='section.model-version__signatures'
-  readonly signaturesHeaderSelector='tr.fields-table__row.fields-table__row--labels'
+  readonly signaturesHeaderSelector='tr.fields-table__row.fields-table__row--labels td.fields-table__cell'
   readonly signaturesRowsSelector='tr.fields-table__row.ng-star-inserted'
   private readonly metadataTableSelector='section.model-version__metadata'
   readonly metadataRowsSelector='td.metadata__value'
@@ -30,6 +30,9 @@ export class DetailsPage {
   private readonly statButtonSelector=' stat '
   readonly tooltipSelector='span.tooltip.ng-star-inserted'
   readonly tooltipWrapperSelector='div.tooltip-wrapper'
+  private readonly logsWindowSelector='div.log__content'
+  // readonly logsRowsSelector='tr.log__item.ng-star-inserted'
+  readonly logsRowsSelector='div.log__body'
 
 
   constructor(page: playwright.Page, unifiedConsoleUrl: string) {
@@ -88,7 +91,11 @@ export class DetailsPage {
   }
 
   async tooltipWrapper() {
-    return await this.page.$(this.tooltipWrapperSelector);
+    return await this.page.$$(this.tooltipWrapperSelector);
+  }
+
+  async logsWindow() {
+    return await this.page.$(this.logsWindowSelector);
   }
 
 
